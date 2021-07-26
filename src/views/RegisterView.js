@@ -1,76 +1,77 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-import { connect } from "react-redux";
-import authOperations from "../redux/auth/auth-operations";
+// import { connect } from "react-redux";
+// import authOperations from "../redux/auth/auth-operations";
 
-class RegisterView extends Component {
-  state = {
-    name: "",
-    email: "",
-    password: "",
+function RegisterView() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const updateEmail = (e) => {
+    setEmail(e.target.value);
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+  const updatePassword = (e) => {
+    setPassword(e.target.value);
   };
 
-  handleSubmit = (e) => {
+  const updateName = (e) => {
+    setName(e.target.value);
+  };
+
+  //  const handleChange = ({ target: { name, value } }) => {
+  //     this.setState({ [name]: value });
+  //   };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onRegister(this.state);
-
-    this.setState({ name: "", email: "", password: "" });
+    alert(`${email}, ${password}, ${name}`);
   };
 
-  render() {
-    const { name, email, password } = this.state;
+  return (
+    <div>
+      <h1>Registration Page</h1>
 
-    return (
-      <div>
-        <h1>Registration Page</h1>
+      <form onSubmit={handleSubmit} autoComplete="on">
+        <label>
+          <p> Name</p>
+          <input type="text" name="name" value={name} onChange={updateName} />
+        </label>
 
-        <form onSubmit={this.handleSubmit} autoComplete="on">
-          <label>
-            <p> Name</p>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={this.handleChange}
-            />
-          </label>
+        <label>
+          <p>Email</p>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={updateEmail}
+          />
+        </label>
 
-          <label>
-            <p>Email</p>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={this.handleChange}
-            />
-          </label>
+        <label>
+          <p>Password</p>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={updatePassword}
+          />
+        </label>
+        <br />
 
-          <label>
-            <p>Password</p>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-
-          <Button type="submit" variant="contained" color="secondary">
-            Sign Up
-          </Button>
-        </form>
-      </div>
-    );
-  }
+        <Button type="submit" variant="contained" color="secondary">
+          Sign Up
+        </Button>
+      </form>
+    </div>
+  );
 }
 
-const mapDispatchToProps = {
-  onRegister: authOperations.register,
-};
+// const mapDispatchToProps = {
+//   onRegister: authOperations.register,
+// };
 
-export default connect(null, mapDispatchToProps)(RegisterView);
+// export default connect(null, mapDispatchToProps)(RegisterView);
+
+export default RegisterView;
