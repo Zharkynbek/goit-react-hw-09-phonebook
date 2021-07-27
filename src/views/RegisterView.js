@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-// import { connect } from "react-redux";
-// import authOperations from "../redux/auth/auth-operations";
+import { useDispatch } from "react-redux";
+import authOperations from "../redux/auth/auth-operations";
 
 function RegisterView() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  const dispatch = useDispatch();
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -20,13 +22,9 @@ function RegisterView() {
     setName(e.target.value);
   };
 
-  //  const handleChange = ({ target: { name, value } }) => {
-  //     this.setState({ [name]: value });
-  //   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`${email}, ${password}, ${name}`);
+    dispatch(authOperations.register({ email, password, name }));
   };
 
   return (
@@ -67,11 +65,5 @@ function RegisterView() {
     </div>
   );
 }
-
-// const mapDispatchToProps = {
-//   onRegister: authOperations.register,
-// };
-
-// export default connect(null, mapDispatchToProps)(RegisterView);
 
 export default RegisterView;

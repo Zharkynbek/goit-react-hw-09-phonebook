@@ -2,10 +2,10 @@ import React, { useEffect, Suspense, lazy } from "react";
 import { Switch } from "react-router-dom";
 import Loader from "./loader/loader";
 import { connect } from "react-redux";
-import AuthNav from "./components/Navigation/AuthNav.container";
+import AuthNav from "./components/Navigation/AuthNav";
 import getCurrentUser from "./redux/auth/auth-operations";
-import PrivateRoute from "./components/Routes/PrivatRoute/PrivatRoute.container";
-import PublicRoute from "./components/Routes/PublicRoute/PublicRoute.container";
+import PrivateRoute from "./components/Routes/PrivatRoute/PrivateRoute";
+import PublicRoute from "./components/Routes/PublicRoute/PublicRoute";
 
 const HomeView = lazy(() => import("./views/HomeView"));
 const RegisterView = lazy(() => import("./views/RegisterView"));
@@ -36,7 +36,7 @@ function App({ updateUser }) {
           />
           <PrivateRoute
             path="/contacts"
-            redirectTo="/contacts"
+            redirectTo="/home"
             component={Phonebook}
           />
         </Switch>

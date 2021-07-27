@@ -1,12 +1,46 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useReducer } from "react";
 import { Button } from "@material-ui/core";
 import { gsap, Power3 } from "gsap";
+import { useDispatch, useSelector } from "react-redux";
+import phonebookSelectors from "../../../redux/contacts/phonebookSelectors";
+import { addContact } from "../../../redux/contacts/phoenbookOperations";
 
-export const PhonebookForm = ({ onAddContact, contacts }) => {
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "name":
+      return {
+        ...state,
+        name: action.payload,
+      };
 
+    case "number":
+      return {
+        ...state,
+        number: action.payload,
+      };
+    case "reset":
+      return {
+        name: "",
+        number: "",
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default function PhonebookForm() {
   let numberRef = useRef(null);
   let nameRef = useRef(null);
   let btnRef = useRef(null);
+
+  const [state, setState] = useReducer(reducer, {
+    name: "",
+    number: "",
+  });
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(phonebookSelectors.getContactList);
 
   useEffect(() => {
     gsap.fromTo(
@@ -51,16 +85,11 @@ export const PhonebookForm = ({ onAddContact, contacts }) => {
     );
   }, [nameRef]);
 
-  const [state, setState] = useState({
-    name: "",
-    number: "",
-  });
-
   const handleSetContact = (e) => {
-    setState((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setState({
+      type: e.target.name,
+      payload: e.target.value,
+    });
   };
 
   const handleAddContact = (e) => {
@@ -69,13 +98,15 @@ export const PhonebookForm = ({ onAddContact, contacts }) => {
       alert(`${state.name} is already in contact`);
       return;
     }
-    onAddContact({
-      name: state.name,
-      number: state.number,
-    });
+    dispatch(
+      addContact({
+        name: state.name,
+        number: state.number,
+      })
+    );
+
     setState({
-      name: "",
-      number: "",
+      type: "reset",
     });
   };
   return (
@@ -119,4 +150,4 @@ export const PhonebookForm = ({ onAddContact, contacts }) => {
       </form>
     </div>
   );
-};
+}

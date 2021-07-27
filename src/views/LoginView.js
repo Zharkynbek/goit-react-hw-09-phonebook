@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
-// import { connect } from "react-redux";
-// import authOperations from "../redux/auth/auth-operations";
+import { useDispatch } from "react-redux";
+import authOperations from "../redux/auth/auth-operations";
 
 function LoginView() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  // componentDidMount() {
-  //   this.setState({
-  //     email: "klklklkl@mail.com",
-  //     password: "klklklkl123",
-  //   });
-  // }
+  useEffect(() => {
+    setEmail("klklklkl@mail.com");
+    setPassword("klklklkl123");
+  }, [setEmail, setPassword]);
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -24,7 +23,12 @@ function LoginView() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`${email}, ${password}`);
+    dispatch(
+      authOperations.login({
+        email,
+        password,
+      })
+    );
   };
 
   return (
@@ -59,8 +63,4 @@ function LoginView() {
   );
 }
 
-// const mapDispatchToProps = {
-//   onLogin: authOperations.login,
-// };
-// export default connect(null, mapDispatchToProps)(LoginView);
 export default LoginView;

@@ -1,9 +1,13 @@
-import PhonebookForm from "./PhonebookForm/PhonebookForm.container";
-import PhonebookList from "./PhonebookList/PhonebookList.container";
-import PhonebookFilter from "./PhonebookFilter/PhonebookFilter.container";
-import { connect } from "react-redux";
+import PhonebookForm from "./PhonebookForm/PhonebookForm";
+import PhonebookList from "./PhonebookList/PhonebookList";
+import PhonebookFilter from "./PhonebookFilter/PhonebookFilter";
+import phonebookSelectors from "../../redux/contacts/phonebookSelectors";
 
-function Phonebook({ contacts, filter }) {
+import { useSelector } from "react-redux";
+
+export default function Phonebook() {
+  const contacts = useSelector(phonebookSelectors.getContactList);
+  const filter = useSelector(phonebookSelectors.getFilterValue);
   return (
     <div>
       <h1>Phonebook</h1>
@@ -13,10 +17,3 @@ function Phonebook({ contacts, filter }) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => ({
-  contacts: state.phonebook.contacts,
-  filter: state.phonebook.filter,
-});
-
-export default connect(mapStateToProps)(Phonebook);

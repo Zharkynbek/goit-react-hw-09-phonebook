@@ -3,8 +3,18 @@ import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { gsap, Power3 } from "gsap";
 
-export const AuthNav = ({ userName, isAuthorized, onLogout }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { isAuthorized, getUsername } from "../../redux/auth/auth-selectors";
+import { logout } from "../../redux/auth/auth-operations";
+
+export default function AuthNav() {
+  const dispatch = useDispatch();
+  const authorized = useSelector(isAuthorized);
+  const userName = useSelector(getUsername);
+
   let navigation = useRef(null);
+  const onLogout = () => dispatch(logout());
+  console.log(authorized);
   useEffect(() => {
     gsap.fromTo(
       navigation,
@@ -26,7 +36,7 @@ export const AuthNav = ({ userName, isAuthorized, onLogout }) => {
             Home
           </Button>
         </NavLink>
-        {isAuthorized && (
+        {authorized && (
           <NavLink to="/contacts" className="Contacts">
             <Button variant="contained" color="secondary">
               Contacts
@@ -34,7 +44,7 @@ export const AuthNav = ({ userName, isAuthorized, onLogout }) => {
           </NavLink>
         )}
       </div>
-      {!isAuthorized ? (
+      {!authorized ? (
         <div>
           <NavLink to="/register" className="HomePageSignUp">
             <Button variant="contained" color="secondary">
@@ -62,4 +72,4 @@ export const AuthNav = ({ userName, isAuthorized, onLogout }) => {
       )}
     </div>
   );
-};
+}

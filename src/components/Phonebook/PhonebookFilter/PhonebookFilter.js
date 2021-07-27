@@ -1,4 +1,13 @@
-export const PhonebookFilter = ({ filterValue, onFilterContact }) => {
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../redux/contacts/phonebookActions";
+import phonebookSelectors from "../../../redux/contacts/phonebookSelectors";
+
+export default function PhonebookFilter() {
+  const dispatch = useDispatch();
+
+  const filterValue = useSelector(phonebookSelectors.getFilterValue);
+  const onAddContact = (e) => dispatch(actions.handleFilterContacts(e));
+
   return (
     <>
       <div className="PhonebookFilter">
@@ -9,11 +18,11 @@ export const PhonebookFilter = ({ filterValue, onFilterContact }) => {
             name="filter"
             id=""
             value={filterValue}
-            onInput={onFilterContact}
+            onInput={onAddContact}
           />
         </label>
       </div>
       <h3>Contacts</h3>
     </>
   );
-};
+}
