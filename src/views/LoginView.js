@@ -8,10 +8,10 @@ function LoginView() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setEmail("klklklkl@mail.com");
-    setPassword("klklklkl123");
-  }, [setEmail, setPassword]);
+  // useEffect(() => {
+  //   setEmail("klklklkl@mail.com");
+  //   setPassword("klklklkl123");
+  // }, [setEmail, setPassword]);
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
