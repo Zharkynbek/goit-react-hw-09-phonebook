@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import authOperations from "../redux/auth/auth-operations";
@@ -7,11 +7,6 @@ function LoginView() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   setEmail("klklklkl@mail.com");
-  //   setPassword("klklklkl123");
-  // }, [setEmail, setPassword]);
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
