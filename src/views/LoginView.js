@@ -28,7 +28,9 @@ function LoginView() {
 
   return (
     <div>
+      <h1 style={{ visibility: "hidden" }}>Please, Sign In</h1>
       <h1>Please, Sign In</h1>
+
       <form onSubmit={handleSubmit} autoComplete="off">
         <label>
           <p>Email</p>

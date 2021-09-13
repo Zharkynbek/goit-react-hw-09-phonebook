@@ -59,6 +59,7 @@ export default function AuthNav() {
         </div>
       ) : (
         <div>
+          <h1 style={{ visibility: "hidden" }}>Please, Sign In</h1>
           <p className="userName">
             Hello, <span>{userName}</span>
           </p>

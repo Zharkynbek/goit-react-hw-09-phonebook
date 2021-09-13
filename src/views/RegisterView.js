@@ -29,6 +29,7 @@ function RegisterView() {
 
   return (
     <div>
+      <h1 style={{ visibility: "hidden" }}>Registration Page</h1>
       <h1>Registration Page</h1>
 
       <form onSubmit={handleSubmit} autoComplete="on">
